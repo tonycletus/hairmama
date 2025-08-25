@@ -24,7 +24,7 @@ A modern web application that leverages artificial intelligence to provide compr
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd hair-shine-spy-main
+   cd hairmama
    ```
 
 2. **Install dependencies**

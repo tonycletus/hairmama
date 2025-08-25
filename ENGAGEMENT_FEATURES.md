@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines the comprehensive engagement and retention features implemented in the Hair Shine Spy application. These features are designed to increase user engagement, provide personalized experiences, and leverage external data sources for enhanced AI recommendations.
+This document outlines the comprehensive engagement and retention features implemented in the Hairmama application. These features are designed to increase user engagement, provide personalized experiences, and leverage external data sources for enhanced AI recommendations.
 
 ## 🎯 Hair Goals Dashboard
 
@@ -366,6 +366,6 @@ supabase gen types typescript --local > src/types/supabase.ts
 
 ---
 
-This comprehensive engagement system transforms the Hair Shine Spy application into a full-featured hair health platform with personalized experiences, scientific backing, and community support.
+This comprehensive engagement system transforms the Hairmama application into a full-featured hair health platform with personalized experiences, scientific backing, and community support.
 
 
