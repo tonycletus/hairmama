@@ -51,7 +51,7 @@ const AppLayout = ({ children, title, subtitle }: AppLayoutProps) => {
       {/* Main Content */}
       <div className="flex-1 lg:ml-0">
         {/* Header */}
-        <header className="glass-card border-b border-border/30 h-16 flex items-center px-4 lg:px-6">
+        <header className="glass-card border-b border-border/20 h-16 flex items-center px-6 lg:px-8 shadow-sm">
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-6">
               <Button
@@ -63,30 +63,30 @@ const AppLayout = ({ children, title, subtitle }: AppLayoutProps) => {
                 <Menu className="h-4 w-4" />
               </Button>
               <div>
-                <h1 className="text-lg font-bold text-foreground">
+                <h1 className="text-xl font-bold text-foreground tracking-tight">
                   {title || `Good morning, ${profile?.first_name || 'there'}!`}
                 </h1>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground mt-1">
                   {subtitle || "Let's check your hair health progress"}
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+            <div className="flex items-center gap-3">
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 transition-colors">
                 <Bell className="h-4 w-4" />
               </Button>
               
               {/* Profile Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-2 p-2 h-8">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                        <span className="text-sm font-medium text-primary-foreground">
+                  <Button variant="ghost" className="flex items-center gap-3 p-2 h-10 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center shadow-sm">
+                        <span className="text-sm font-semibold text-primary-foreground">
                           {getUserInitial()}
                         </span>
                       </div>
-                      <span className="text-sm font-medium hidden sm:block">
+                      <span className="text-sm font-semibold hidden sm:block">
                         {getUserDisplayName()}
                       </span>
                     </div>
@@ -231,7 +231,7 @@ const AppLayout = ({ children, title, subtitle }: AppLayoutProps) => {
         </header>
 
         {/* Page Content */}
-        <main className="p-4 lg:p-6">
+        <main className="p-6 lg:p-8 animate-fade-in">
           {children}
         </main>
       </div>

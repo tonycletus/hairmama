@@ -22,10 +22,11 @@ interface PhotoUploadProps {
   selectedFile: File | null;
   isAnalyzing?: boolean;
   onAnalyze?: (file: File) => void;
+  onRemovePhoto?: () => void;
   className?: string;
 }
 
-const PhotoUpload = ({ onPhotoSelect, selectedFile, isAnalyzing = false, onAnalyze, className }: PhotoUploadProps) => {
+const PhotoUpload = ({ onPhotoSelect, selectedFile, isAnalyzing = false, onAnalyze, onRemovePhoto, className }: PhotoUploadProps) => {
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [cameraStream, setCameraStream] = useState<MediaStream | null>(null);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
@@ -218,29 +219,49 @@ const PhotoUpload = ({ onPhotoSelect, selectedFile, isAnalyzing = false, onAnaly
           </TabsList>
 
           <TabsContent value="upload" className="space-y-4">
-            <div 
-              className="border-2 border-dashed border-border rounded-lg p-8 text-center transition-all duration-200 hover:border-primary/50 hover:bg-primary/5"
-              onDragOver={handleDragOver}
-              onDrop={handleDrop}
-            >
-              <Upload className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <p className="text-muted-foreground mb-4">
-                Click to upload or drag and drop your hair photo
-              </p>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleFileSelect}
-                className="hidden"
-                id="photo-upload"
-              />
-              <label htmlFor="photo-upload">
-                <Button asChild>
-                  <span>Choose Photo</span>
-                </Button>
-              </label>
-            </div>
+            {selectedFile ? (
+              <div className="relative">
+                <img
+                  src={URL.createObjectURL(selectedFile)}
+                  alt="Selected hair photo"
+                  className="w-full h-64 object-cover rounded-lg"
+                />
+                <div className="absolute top-2 right-2">
+                  <Button
+                    onClick={onRemovePhoto}
+                    size="sm"
+                    variant="secondary"
+                    className="bg-white/90 hover:bg-white shadow-md"
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div 
+                className="border-2 border-dashed border-border rounded-lg p-8 text-center transition-all duration-200 hover:border-primary/50 hover:bg-primary/5"
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+              >
+                <Upload className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <p className="text-muted-foreground mb-4">
+                  Click to upload or drag and drop your hair photo
+                </p>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileSelect}
+                  className="hidden"
+                  id="photo-upload"
+                />
+                <label htmlFor="photo-upload">
+                  <Button asChild>
+                    <span>Choose Photo</span>
+                  </Button>
+                </label>
+              </div>
+            )}
           </TabsContent>
 
           <TabsContent value="camera" className="space-y-4">
@@ -252,7 +273,7 @@ const PhotoUpload = ({ onPhotoSelect, selectedFile, isAnalyzing = false, onAnaly
               
               <Dialog open={isCameraOpen} onOpenChange={setIsCameraOpen}>
                 <DialogTrigger asChild>
-                  <Button onClick={handleCameraOpen} className="flex items-center gap-2 w-full sm:w-auto justify-center">
+                  <Button onClick={handleCameraOpen} className="flex items-center gap-2 w-full sm:w-auto justify-center mx-auto">
                     <Camera className="h-4 w-4" />
                     <span className="hidden sm:inline">Open Camera</span>
                     <span className="sm:hidden">Camera</span>

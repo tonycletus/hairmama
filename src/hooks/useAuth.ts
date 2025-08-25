@@ -52,6 +52,27 @@ export const useAuth = () => {
     return { error };
   };
 
+  const signInWithGoogle = async () => {
+    const redirectUrl = `${window.location.origin}/dashboard`;
+    
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: redirectUrl,
+      }
+    });
+    return { error };
+  };
+
+  const resetPassword = async (email: string) => {
+    const redirectUrl = `${window.location.origin}/auth?tab=signin`;
+    
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: redirectUrl,
+    });
+    return { error };
+  };
+
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     return { error };
@@ -63,6 +84,8 @@ export const useAuth = () => {
     loading,
     signUp,
     signIn,
+    signInWithGoogle,
+    resetPassword,
     signOut,
   };
 };

@@ -11,8 +11,16 @@ import IngredientChecker from "./pages/IngredientChecker";
 // import Remedies from "./pages/Remedies"; // Future feature
 // import Nutrition from "./pages/Nutrition"; // Future feature
 import Settings from "./pages/Settings";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import Support from "./pages/Support";
+import HairCareGuide from "./pages/HairCareGuide";
+import PhotoTips from "./pages/PhotoTips";
+import GoalSetting from "./pages/GoalSetting";
+import IngredientSafety from "./pages/IngredientSafety";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import RedirectIfAuthenticated from "./components/auth/RedirectIfAuthenticated";
 
 const queryClient = new QueryClient();
 
@@ -24,7 +32,11 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/auth" element={
+            <RedirectIfAuthenticated>
+              <AuthPage />
+            </RedirectIfAuthenticated>
+          } />
           <Route path="/dashboard" element={
             <ProtectedRoute>
               <Dashboard />
@@ -57,8 +69,15 @@ const App = () => (
               <Settings />
             </ProtectedRoute>
           } />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+                        <Route path="/privacy" element={<Privacy />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/hair-care-guide" element={<HairCareGuide />} />
+              <Route path="/photo-tips" element={<PhotoTips />} />
+              <Route path="/goal-setting" element={<GoalSetting />} />
+              <Route path="/ingredient-safety" element={<IngredientSafety />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

@@ -19,17 +19,20 @@ import {
   Moon,
   Sun,
   CreditCard,
-  LogOut
+  LogOut,
+  ExternalLink
 } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import ProfilePhotoUpload from "@/components/ui/profile-photo-upload";
+import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
   const { profile, updateProfile } = useProfile();
   const { signOut } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [notifications, setNotifications] = useState({
     dailyReminder: true,
@@ -323,6 +326,36 @@ const Settings = () => {
                     <Shield className="h-4 w-4 mr-2" />
                     Change Password
                   </Button>
+                  
+                  <Separator />
+                  
+                  <div className="space-y-4">
+                    <h4 className="font-medium">Legal & Support</h4>
+                    <Button 
+                      variant="outline" 
+                      className="w-full justify-start"
+                      onClick={() => navigate('/privacy')}
+                    >
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Privacy Policy
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="w-full justify-start"
+                      onClick={() => navigate('/terms')}
+                    >
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Terms of Service
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="w-full justify-start"
+                      onClick={() => navigate('/support')}
+                    >
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Support Center
+                    </Button>
+                  </div>
                   
                   <Separator />
                   

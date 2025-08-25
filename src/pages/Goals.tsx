@@ -132,18 +132,18 @@ const Goals = () => {
 
   return (
     <AppLayout title="Hair Goals" subtitle="Track your hair health journey">
-      <div className="max-w-6xl mx-auto space-y-6">
+      <div className="max-w-6xl mx-auto space-y-8">
         {/* Header with Create Goal Button */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold">Hair Goals Dashboard</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-4xl font-bold tracking-tight">Hair Goals Dashboard</h1>
+            <p className="text-lg text-muted-foreground mt-2">
               Set, track, and achieve your hair health objectives with photo progress tracking
             </p>
           </div>
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="flex items-center gap-2">
+              <Button className="flex items-center gap-2 transition-colors">
                 <Plus className="h-4 w-4" />
                 Create New Goal
               </Button>
@@ -622,8 +622,8 @@ const Goals = () => {
           <TabsContent value="photos" className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold">Photo Progress Tracking</h2>
-                <p className="text-muted-foreground">
+                <h2 className="text-3xl font-bold tracking-tight">Photo Progress Tracking</h2>
+                <p className="text-lg text-muted-foreground mt-2">
                   Visualize your hair journey with photos and AI analysis
                 </p>
               </div>

@@ -48,6 +48,15 @@ const Dashboard = () => {
     setPreviewUrl(url);
   };
 
+  const handleRemovePhoto = () => {
+    setSelectedFile(null);
+    setAnalysisResults(null);
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+      setPreviewUrl(null);
+    }
+  };
+
 
 
   const handleAnalyze = async (file: File) => {
@@ -168,23 +177,28 @@ const Dashboard = () => {
 
   return (
     <AppLayout title="Hair Analysis" subtitle="Upload a photo to get AI-powered analysis">
-      <div className="max-w-6xl mx-auto space-y-6">
+      <div className="max-w-6xl mx-auto space-y-8">
 
 
         {/* Upload Section */}
-        <PhotoUpload
-          onPhotoSelect={handleFileSelect}
-          selectedFile={selectedFile}
-          isAnalyzing={isAnalyzing}
-          onAnalyze={handleAnalyze}
-        />
+        <div className="space-y-6">
+          <PhotoUpload
+            onPhotoSelect={handleFileSelect}
+            selectedFile={selectedFile}
+            isAnalyzing={isAnalyzing}
+            onAnalyze={handleAnalyze}
+            onRemovePhoto={handleRemovePhoto}
+          />
+        </div>
         
         {/* Image Preview */}
         {previewUrl && selectedFile && (
-          <Card className="glass-card border-border/30">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5" />
+          <Card className="glass-card border-border/20 shadow-lg">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <FileText className="h-4 w-4 text-primary" />
+                </div>
                 Photo Preview
               </CardTitle>
             </CardHeader>
@@ -193,7 +207,7 @@ const Dashboard = () => {
                 <img 
                   src={previewUrl} 
                   alt="Hair preview" 
-                  className="w-full max-h-64 object-cover rounded-lg"
+                  className="w-full h-auto max-h-96 object-contain rounded-xl shadow-md"
                 />
               </div>
             </CardContent>
@@ -202,34 +216,36 @@ const Dashboard = () => {
 
         {/* Recent Analysis History */}
         {photos.length > 0 && (
-          <Card className="glass-card border-border/30">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5" />
+          <Card className="glass-card border-border/20 shadow-lg">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="h-4 w-4 text-primary" />
+                </div>
                 Recent Analysis History
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-muted-foreground">
                 Your recent hair analysis results and progress tracking
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {photos.slice(0, 6).map((photo) => (
-                  <Card key={photo.id} className="border-border/30">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Card key={photo.id} className="border-border/20 hover:border-primary/30 transition-all duration-300 hover:shadow-md">
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                           <ImageIcon className="h-6 w-6 text-primary" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium truncate">{photo.title}</p>
-                          <p className="text-xs text-muted-foreground">
+                          <p className="text-sm font-semibold truncate text-foreground">{photo.title}</p>
+                          <p className="text-xs text-muted-foreground mt-1">
                             {photo.dateUploaded.toLocaleDateString()}
                           </p>
                           {photo.analysisResults && (
-                            <div className="flex items-center gap-1 mt-1">
-                              <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                              <span className="text-xs text-muted-foreground">Analyzed</span>
+                            <div className="flex items-center gap-2 mt-2">
+                              <div className="w-2 h-2 rounded-full bg-success"></div>
+                              <span className="text-xs text-muted-foreground font-medium">Analyzed</span>
                             </div>
                           )}
                         </div>
@@ -239,8 +255,8 @@ const Dashboard = () => {
                 ))}
               </div>
               {photos.length > 6 && (
-                <div className="mt-4 text-center">
-                  <Button variant="outline" size="sm" onClick={() => navigate('/goals')}>
+                <div className="mt-6 text-center">
+                  <Button variant="outline" size="sm" onClick={() => navigate('/goals')} className="transition-colors">
                     View All Photos & Progress
                   </Button>
                 </div>
@@ -251,13 +267,15 @@ const Dashboard = () => {
 
         {/* Analysis Results */}
         {analysisResults && (
-      <div className="space-y-6">
+      <div className="space-y-8">
             {/* Not Hair Image Alert */}
             {!analysisResults.isHairImage && (
               <Card className="glass-card border-red-200/30 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-red-600">
-                    <AlertCircle className="h-5 w-5 text-red-500" />
+                <CardHeader className="pb-4">
+                  <CardTitle className="flex items-center gap-3 text-red-600">
+                    <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
+                      <AlertCircle className="h-4 w-4 text-red-500" />
+                    </div>
                     Not Human Hair Detected
                   </CardTitle>
                 </CardHeader>
@@ -312,9 +330,11 @@ const Dashboard = () => {
               <>
                 {/* Health Score - Insanely Great Design */}
             <Card className="glass-primary border-primary/30 shadow-2xl">
-              <CardHeader>
-                <CardTitle className="text-primary-foreground flex items-center gap-3 text-2xl font-bold">
-                  <Star className="h-6 w-6 text-yellow-400" />
+              <CardHeader className="pb-6">
+                <CardTitle className="text-primary-foreground flex items-center gap-3 text-3xl font-bold tracking-tight">
+                  <div className="w-10 h-10 bg-yellow-400/20 rounded-xl flex items-center justify-center">
+                    <Star className="h-6 w-6 text-yellow-400" />
+                  </div>
                 Hair Health Score
               </CardTitle>
             </CardHeader>
@@ -345,9 +365,11 @@ const Dashboard = () => {
 
             {/* Model Information - Enhanced */}
             <Card className="glass-secondary border-blue-200/30 shadow-lg">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-blue-600">
-                  <Sparkles className="h-5 w-5 text-blue-500" />
+              <CardHeader className="pb-4">
+                <CardTitle className="flex items-center gap-3 text-blue-600">
+                  <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <Sparkles className="h-4 w-4 text-blue-500" />
+                  </div>
                   AI Analysis Details
                 </CardTitle>
               </CardHeader>
@@ -372,31 +394,33 @@ const Dashboard = () => {
             </Card>
 
             {/* Hair Details Grid */}
-            <Card className="glass-card border-border/30">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Eye className="h-5 w-5" />
+            <Card className="glass-card border-border/20 shadow-lg">
+              <CardHeader className="pb-4">
+                <CardTitle className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <Eye className="h-4 w-4 text-primary" />
+                  </div>
                   Hair Analysis Details
                 </CardTitle>
-                <CardDescription>Comprehensive breakdown of your hair characteristics</CardDescription>
+                <CardDescription className="text-muted-foreground">Comprehensive breakdown of your hair characteristics</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="p-4 glass-secondary rounded-xl text-center border border-border/20 hover:border-primary/30 transition-all duration-300 hover:shadow-lg">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  <div className="p-6 glass-secondary rounded-xl text-center border border-border/20 hover:border-primary/30 transition-all duration-300 hover:shadow-lg">
                     <div className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Texture</div>
-                    <div className="text-xl font-bold text-primary mt-2">
+                    <div className="text-2xl font-bold text-primary mt-3">
                       {analysisResults.details.texture}
                     </div>
                   </div>
-                  <div className="p-4 glass-secondary rounded-xl text-center border border-border/20 hover:border-primary/30 transition-all duration-300 hover:shadow-lg">
+                  <div className="p-6 glass-secondary rounded-xl text-center border border-border/20 hover:border-primary/30 transition-all duration-300 hover:shadow-lg">
                     <div className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Thickness</div>
-                    <div className="text-xl font-bold text-primary mt-2">
+                    <div className="text-2xl font-bold text-primary mt-3">
                       {analysisResults.details.thickness}
                     </div>
                   </div>
-                  <div className="p-4 glass-secondary rounded-xl text-center border border-border/20 hover:border-primary/30 transition-all duration-300 hover:shadow-lg">
+                  <div className="p-6 glass-secondary rounded-xl text-center border border-border/20 hover:border-primary/30 transition-all duration-300 hover:shadow-lg">
                     <div className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Curl Pattern</div>
-                    <div className="text-xl font-bold text-primary mt-2">
+                    <div className="text-2xl font-bold text-primary mt-3">
                       {analysisResults.details.curlPattern}
                     </div>
                   </div>

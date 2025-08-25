@@ -65,7 +65,12 @@ export const ProgressGallery: React.FC<ProgressGalleryProps> = ({ className }) =
     return (
       <div className={`space-y-4 ${className}`}>
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold">Progress Gallery</h2>
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight">Progress Gallery</h2>
+            <p className="text-lg text-muted-foreground mt-2">
+              Track your hair journey with photos and AI analysis
+            </p>
+          </div>
           <Button onClick={() => setIsUploadDialogOpen(true)} disabled>
             Upload Photo
           </Button>
@@ -90,8 +95,8 @@ export const ProgressGallery: React.FC<ProgressGalleryProps> = ({ className }) =
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Progress Gallery</h2>
-          <p className="text-muted-foreground">
+          <h2 className="text-3xl font-bold tracking-tight">Progress Gallery</h2>
+          <p className="text-lg text-muted-foreground mt-2">
             Track your hair journey with photos and AI analysis
           </p>
         </div>
@@ -111,6 +116,7 @@ export const ProgressGallery: React.FC<ProgressGalleryProps> = ({ className }) =
             selectedFile={null}
             isAnalyzing={uploading}
             onAnalyze={handlePhotoUpload}
+            onRemovePhoto={() => {}}
           />
         </DialogContent>
       </Dialog>

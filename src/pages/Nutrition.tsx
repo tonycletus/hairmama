@@ -63,14 +63,14 @@ const Nutrition = () => {
 
   return (
     <AppLayout title="Nutrition Tracking" subtitle="Monitor your essential hair nutrients">
-      <div className="space-y-6">
+      <div className="space-y-8">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Nutrition Tracking</h1>
-          <p className="text-muted-foreground">Monitor your essential hair nutrients</p>
+          <h1 className="text-4xl font-bold text-foreground tracking-tight">Nutrition Tracking</h1>
+          <p className="text-lg text-muted-foreground mt-2">Monitor your essential hair nutrients</p>
         </div>
-        <Button onClick={() => setShowAddForm(!showAddForm)} className="flex items-center gap-2">
+        <Button onClick={() => setShowAddForm(!showAddForm)} className="flex items-center gap-2 transition-colors">
           <Plus className="h-4 w-4" />
           Add Nutrition
         </Button>
@@ -78,10 +78,15 @@ const Nutrition = () => {
 
       {/* Add Nutrition Form */}
       {showAddForm && (
-        <Card className="glass-card border-border/30">
-          <CardHeader>
-            <CardTitle>Add Nutrition Log</CardTitle>
-            <CardDescription>Track your daily nutrient intake</CardDescription>
+        <Card className="glass-card border-border/20 shadow-lg">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                <Apple className="h-4 w-4 text-primary" />
+              </div>
+              Add Nutrition Log
+            </CardTitle>
+            <CardDescription className="text-muted-foreground">Track your daily nutrient intake</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
