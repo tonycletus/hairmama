@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hairmama Design System - Health & Wellness Theme */
+
+@layer base {
+  :root {
+    /* Core Brand Colors - Natural Wellness Palette */
+    --background: 120 25% 98%;
+    --foreground: 140 20% 15%;
+
+    /* Card & Surface Colors */
+    --card: 120 30% 99%;
+    --card-foreground: 140 20% 15%;
+
+    --popover: 120 30% 99%;
+    --popover-foreground: 140 20% 15%;
+
+    /* Primary - Sage Green for vitality */
+    --primary: 140 35% 45%;
+    --primary-foreground: 120 30% 98%;
+    --primary-glow: 140 45% 55%;
+
+    /* Secondary - Soft mint for balance */
+    --secondary: 150 25% 90%;
+    --secondary-foreground: 140 30% 25%;
+
+    /* Muted - Subtle backgrounds */
+    --muted: 120 20% 94%;
+    --muted-foreground: 140 15% 55%;
+
+    /* Accent - Warm amber for highlights */
+    --accent: 45 85% 65%;
+    --accent-foreground: 45 30% 15%;
+
+    /* Health Status Colors */
+    --success: 130 60% 50%;
+    --success-foreground: 130 30% 98%;
+    
+    --warning: 45 85% 65%;
+    --warning-foreground: 45 30% 15%;
+    
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 30% 98%;
+
+    /* UI Elements */
+    --border: 140 20% 85%;
+    --input: 140 20% 90%;
+    --ring: 140 35% 45%;
+
+    /* Gradients for glassmorphism */
+    --gradient-primary: linear-gradient(135deg, hsl(140 35% 45% / 0.9), hsl(140 45% 55% / 0.7));
+    --gradient-secondary: linear-gradient(135deg, hsl(150 25% 90% / 0.8), hsl(120 30% 95% / 0.6));
+    --gradient-accent: linear-gradient(135deg, hsl(45 85% 65% / 0.9), hsl(35 75% 70% / 0.7));
+    --gradient-glass: linear-gradient(135deg, hsl(120 30% 99% / 0.8), hsl(140 25% 95% / 0.6));
+
+    /* Shadows for depth */
+    --shadow-sm: 0 1px 3px hsl(140 20% 15% / 0.1);
+    --shadow-md: 0 4px 12px hsl(140 20% 15% / 0.1);
+    --shadow-lg: 0 10px 30px hsl(140 20% 15% / 0.15);
+    --shadow-glow: 0 0 30px hsl(140 35% 45% / 0.3);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+@layer components {
+  /* Glassmorphism utility classes */
+  .glass-card {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border) / 0.3);
+    box-shadow: var(--shadow-md);
+  }
+
+  .glass-primary {
+    background: var(--gradient-primary);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--primary) / 0.3);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .glass-secondary {
+    background: var(--gradient-secondary);
+    backdrop-filter: blur(8px);
+    border: 1px solid hsl(var(--secondary) / 0.4);
+  }
+
+  /* Progress ring animation */
+  .progress-ring {
+    transition: stroke-dashoffset 0.5s ease-in-out;
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+
+  /* Hover glow effects */
+  .hover-glow:hover {
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+  }
+}
