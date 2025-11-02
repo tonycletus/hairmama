@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Leaf, ArrowLeft, Eye, EyeOff, Mail } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 
@@ -22,6 +22,8 @@ const AuthPage = () => {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [resetEmailSent, setResetEmailSent] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const tabFromUrl = searchParams.get('tab') || 'signin';
   const { signIn, signUp, signInWithGoogle, resetPassword } = useAuth();
   const { toast } = useToast();
 
@@ -64,10 +66,8 @@ const AuthPage = () => {
         title: "Account created successfully!",
         description: "Please check your email to verify your account.",
       });
-      // Redirect to quiz for assessment
-      setTimeout(() => {
-        navigate('/quiz');
-      }, 2000);
+      // Redirect to login page to sign in
+      navigate('/auth?tab=signin');
     }
     setLoading(false);
   };
@@ -209,7 +209,11 @@ const AuthPage = () => {
         {/* Auth Tabs */}
         {!showForgotPassword && (
           <Card className="glass-card border-border/30">
-            <Tabs defaultValue="signin" className="w-full">
+            <Tabs 
+              value={tabFromUrl} 
+              onValueChange={(value) => navigate(`/auth?tab=${value}`, { replace: true })}
+              className="w-full"
+            >
               <TabsList className="grid w-full grid-cols-2 glass-secondary">
                 <TabsTrigger value="signin">Sign In</TabsTrigger>
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
