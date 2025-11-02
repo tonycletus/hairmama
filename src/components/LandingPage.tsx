@@ -18,10 +18,7 @@ const LandingPage = () => {
       <header className="glass-card sticky top-0 z-50 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <Camera className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold text-foreground">Hairmama</span>
+            <img src="/logo.png" alt="Hairmama" className="w-100 h-10" />
           </div>
           <div className="flex items-center space-x-3">
             {user ? (
@@ -60,10 +57,7 @@ const LandingPage = () => {
                   <Sparkles className="h-3 w-3 mr-1" />
                   AI-Powered Hair Analysis
                 </Badge>
-                <h1 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-                  Transform Your Hair Journey with
-                  <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent"> AI-Powered Insights </span>
-                </h1>
+                <h1 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight">Transform Your Hair Journey with<span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent"> AI-Powered Insights </span></h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
                   Experience the future of hair care with our advanced AI technology. Get comprehensive analysis, 
                   personalized recommendations, and track your progress with scientific precision.
@@ -271,10 +265,7 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <Camera className="h-5 w-5 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold text-foreground">Hairmama</span>
+              <img src="/logo.png" alt="Hairmama" className="w-100 h-10" />
             </div>
             <div className="flex items-center space-x-6 text-sm text-muted-foreground">
               <a href="/privacy" className="hover:text-foreground transition-smooth">Privacy</a>

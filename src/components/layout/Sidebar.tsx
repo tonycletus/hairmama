@@ -49,10 +49,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       <div className={`fixed inset-y-0 left-0 z-50 w-64 glass-card border-r border-border/30 transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex items-center justify-between p-6 border-b border-border/30">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <Camera className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <span className="text-lg font-bold text-foreground">Hairmama</span>
+            <img src="/logo.png" alt="Hairmama" className="w-100 h-10" />
           </div>
           <Button
             variant="ghost"

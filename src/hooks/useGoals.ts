@@ -32,23 +32,29 @@ export const useGoals = () => {
 
       if (fetchError) throw fetchError;
 
-      const formattedGoals: HairGoal[] = (data || []).map(goal => ({
-        ...goal,
-        id: goal.id,
-        userId: goal.user_id,
-        initialValue: goal.initial_value || goal.current_value,
-        targetDate: new Date(goal.target_date),
-        startDate: new Date(goal.start_date),
-        createdAt: new Date(goal.created_at),
-        updatedAt: new Date(goal.updated_at),
-        milestones: (goal.milestones || []).map((milestone: any) => ({
-          ...milestone,
-          id: milestone.id,
-          goalId: milestone.goal_id,
-          targetDate: new Date(milestone.target_date),
-          completedAt: milestone.completed_at ? new Date(milestone.completed_at) : undefined
-        }))
-      }));
+      const formattedGoals: HairGoal[] = (data || []).map(goal => {
+        // Calculate initial value from start_date - use current_value at creation time
+        // Since initial_value doesn't exist in schema, we'll use current_value as baseline
+        const initialValue = goal.current_value; // Use current_value as initial baseline
+        
+        return {
+          ...goal,
+          id: goal.id,
+          userId: goal.user_id,
+          initialValue: initialValue,
+          targetDate: new Date(goal.target_date),
+          startDate: new Date(goal.start_date),
+          createdAt: new Date(goal.created_at),
+          updatedAt: new Date(goal.updated_at),
+          milestones: (goal.milestones || []).map((milestone: any) => ({
+            ...milestone,
+            id: milestone.id,
+            goalId: milestone.goal_id,
+            targetDate: new Date(milestone.target_date),
+            completedAt: milestone.completed_at ? new Date(milestone.completed_at) : undefined
+          }))
+        };
+      });
 
       setGoals(formattedGoals);
     } catch (err) {
@@ -78,7 +84,6 @@ export const useGoals = () => {
           description: goalData.description,
           target_value: goalData.targetValue,
           current_value: goalData.currentValue,
-          initial_value: goalData.currentValue, // Set initial value to current value when creating
           unit: goalData.unit,
           target_date: goalData.targetDate.toISOString(),
           start_date: goalData.startDate.toISOString(),
@@ -94,12 +99,12 @@ export const useGoals = () => {
         ...data,
         id: data.id,
         userId: data.user_id,
-        initialValue: data.initial_value || data.current_value,
+        initialValue: data.current_value, // Use current_value as initial baseline
         targetDate: new Date(data.target_date),
         startDate: new Date(data.start_date),
         createdAt: new Date(data.created_at),
         updatedAt: new Date(data.updated_at),
-        progress: calculateProgress(data.current_value, data.target_value, data.initial_value || data.current_value, new Date(data.start_date), new Date(data.target_date)),
+        progress: calculateProgress(data.current_value, data.target_value, data.current_value, new Date(data.start_date), new Date(data.target_date)),
         milestones: []
       };
 
@@ -145,17 +150,19 @@ export const useGoals = () => {
 
       if (updateError) throw updateError;
 
+      // Get the original goal to preserve initialValue
+      const originalGoal = goals.find(g => g.id === goalId);
       const updatedGoal: HairGoal = {
         ...data,
         id: data.id,
         userId: data.user_id,
-        initialValue: data.initial_value || data.current_value,
+        initialValue: originalGoal?.initialValue || data.current_value, // Preserve original initial value
         targetDate: new Date(data.target_date),
         startDate: new Date(data.start_date),
         createdAt: new Date(data.created_at),
         updatedAt: new Date(data.updated_at),
-        progress: calculateProgress(data.current_value, data.target_value, data.initial_value || data.current_value, new Date(data.start_date), new Date(data.target_date)),
-        milestones: goals.find(g => g.id === goalId)?.milestones || []
+        progress: calculateProgress(data.current_value, data.target_value, originalGoal?.initialValue || data.current_value, new Date(data.start_date), new Date(data.target_date)),
+        milestones: originalGoal?.milestones || []
       };
 
       setGoals(prev => prev.map(goal => goal.id === goalId ? updatedGoal : goal));
@@ -213,7 +220,10 @@ export const useGoals = () => {
       const goal = goals.find(g => g.id === goalId);
       if (!goal) throw new Error('Goal not found');
 
-      const progress = calculateProgress(currentValue, goal.targetValue, goal.initialValue || goal.currentValue, goal.startDate, goal.targetDate);
+      // For progress calculation, use the goal's initialValue if available, otherwise use current value
+      // The database trigger will calculate progress, but we calculate it here for immediate UI update
+      const initialBaseline = goal.initialValue || 0; // Start from 0 if no initial value
+      const progress = calculateProgress(currentValue, goal.targetValue, initialBaseline, goal.startDate, goal.targetDate);
 
       const { data, error: updateError } = await supabase
         .from('hair_goals')
@@ -228,9 +238,11 @@ export const useGoals = () => {
 
       if (updateError) throw updateError;
 
+      // Preserve initialValue from original goal
       const updatedGoal: HairGoal = {
         ...goal,
         currentValue,
+        initialValue: goal.initialValue || 0, // Preserve initial value for progress calculation
         progress,
         status: progress >= 100 ? 'completed' : 'active',
         updatedAt: new Date()

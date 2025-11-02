@@ -126,9 +126,7 @@ const AuthPage = () => {
           </Button>
           
           <div className="flex justify-center">
-            <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
-              <Leaf className="h-7 w-7 text-primary-foreground" />
-            </div>
+            <img src="/logo.png" alt="Hairmama" className="w-12 h-12" />
           </div>
           <div>
             <h1 className="text-2xl font-bold text-foreground">Welcome to Hairmama</h1>
