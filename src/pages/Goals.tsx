@@ -119,7 +119,7 @@ const Goals = () => {
 
   if (loading) {
     return (
-      <AppLayout title="Hair Goals" subtitle="Track your hair health journey">
+      <AppLayout title="Hair Goals">
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
@@ -131,12 +131,12 @@ const Goals = () => {
   }
 
   return (
-    <AppLayout title="Hair Goals" subtitle="Track your hair health journey">
+    <AppLayout title="Hair Goals">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header with Create Goal Button */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold tracking-tight">Hair Goals Dashboard</h1>
+            <h1 className="text-4xl font-bold tracking-tight">Hair Goals</h1>
             <p className="text-lg text-muted-foreground mt-2">
               Set, track, and achieve your hair health objectives with photo progress tracking
             </p>

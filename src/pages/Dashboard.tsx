@@ -176,7 +176,7 @@ const Dashboard = () => {
   };
 
   return (
-    <AppLayout title="Hair Analysis" subtitle="Upload a photo to get AI-powered analysis">
+    <AppLayout title="Hair Analysis">
       <div className="max-w-6xl mx-auto space-y-8">
 
 

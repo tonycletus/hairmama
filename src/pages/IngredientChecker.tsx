@@ -100,7 +100,7 @@ const IngredientChecker = () => {
   const safetySummary = analysis ? getSafetySummary(analysis.ingredients) : null;
 
   return (
-    <AppLayout title="Ingredient Checker" subtitle="Real-time ingredient safety analysis with live data">
+    <AppLayout title="Ingredient Checker">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">

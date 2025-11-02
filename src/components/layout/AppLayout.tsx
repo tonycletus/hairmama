@@ -39,7 +39,7 @@ const AppLayout = ({ children, title, subtitle }: AppLayoutProps) => {
 
   const getUserDisplayName = () => {
     if (profile?.first_name) {
-      return `${profile.first_name}'s Hairmama`;
+      return `${profile.first_name}`;
     }
     return "User's Hairmama";
   };
@@ -67,7 +67,7 @@ const AppLayout = ({ children, title, subtitle }: AppLayoutProps) => {
                   {title || `Good morning, ${profile?.first_name || 'there'}!`}
                 </h1>
                 <p className="text-sm text-muted-foreground mt-1">
-                  {subtitle || "Let's check your hair health progress"}
+                  {subtitle}
                 </p>
               </div>
             </div>
@@ -86,9 +86,7 @@ const AppLayout = ({ children, title, subtitle }: AppLayoutProps) => {
                           {getUserInitial()}
                         </span>
                       </div>
-                      <span className="text-sm font-semibold hidden sm:block">
-                        {getUserDisplayName()}
-                      </span>
+                    
                     </div>
                   </Button>
                 </DropdownMenuTrigger>
@@ -169,7 +167,7 @@ const AppLayout = ({ children, title, subtitle }: AppLayoutProps) => {
 
                   <DropdownMenuSeparator />
 
-                  {/* Progress Tracking Section */}
+                  {/* Progress Tracking Section
                   <div className="p-3">
                     <div className="flex items-center justify-between px-2 py-1">
                       <span className="text-xs text-muted-foreground">Progress Tracking</span>
@@ -196,16 +194,12 @@ const AppLayout = ({ children, title, subtitle }: AppLayoutProps) => {
                         <p className="text-sm">View Analysis History</p>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   <DropdownMenuSeparator />
 
                   {/* Help and Support */}
                   <div className="p-3 space-y-1">
-                    <DropdownMenuItem className="flex items-center gap-2 px-2 py-1.5 text-sm cursor-pointer">
-                      <CreditCard className="h-3 w-3" />
-                      <span className="text-sm">Get free credits</span>
-                    </DropdownMenuItem>
                     <DropdownMenuItem className="flex items-center gap-2 px-2 py-1.5 text-sm cursor-pointer">
                       <HelpCircle className="h-4 w-4" />
                       <p className="text-sm">Help Center</p>

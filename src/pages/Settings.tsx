@@ -86,7 +86,7 @@ const Settings = () => {
   };
 
   return (
-    <AppLayout title="Settings" subtitle="Manage your account and preferences">
+    <AppLayout title="Settings">
       <div className="space-y-6">
         <Tabs defaultValue="profile" className="space-y-6">
           <TabsList className="grid w-full grid-cols-5">
